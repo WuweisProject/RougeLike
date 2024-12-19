@@ -3,6 +3,8 @@
 
 #include "AbilityComponet.h"
 
+#include "GameplayTagContainer.h"
+
 
 // Sets default values for this component's properties
 UAbilityComponet::UAbilityComponet()
@@ -51,5 +53,51 @@ void UAbilityComponet::TickComponent(float DeltaTime, ELevelTick TickType,
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UAbilityComponet::SetAttributeBaseValue(FGameplayTag Tag, float NewValue)
+{
+	for(auto AttributeData:AttributeDataArray)
+	{
+		if(AttributeData->SetAttributeBaseValue(Tag.GetTagName(),NewValue))
+		{
+			return;
+		}
+	}
+}
+
+void UAbilityComponet::SetAttributeCurrValue(FGameplayTag Tag, float NewValue)
+{
+	for(auto AttributeData:AttributeDataArray)
+	{
+		if(AttributeData->SetAttributeCurrValue(Tag.GetTagName(),NewValue))
+		{
+			return;
+		}
+	}
+}
+
+bool UAbilityComponet::GetAttributeBaseValue(FGameplayTag Tag,float& GetValue)
+{
+	for(auto AttributeData:AttributeDataArray)
+	{
+		if(AttributeData->GetAttributeBaseValue(Tag.GetTagName(),GetValue))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool UAbilityComponet::GetAttributeCurrValue(FGameplayTag Tag,float& GetValue)
+{
+	for(auto AttributeData:AttributeDataArray)
+	{
+		if(AttributeData->GetAttributeCurrValue(Tag.GetTagName(),GetValue))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 

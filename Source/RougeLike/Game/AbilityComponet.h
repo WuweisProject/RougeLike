@@ -8,6 +8,8 @@
 #include "AbilityComponet.generated.h"
 
 
+struct FGameplayTag;
+
 USTRUCT(Blueprintable)
 struct FAttributeInitInfo
 {
@@ -41,8 +43,12 @@ public:
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 
+	void SetAttributeBaseValue(FGameplayTag Tag,float NewValue);
+	void SetAttributeCurrValue(FGameplayTag Tag,float NewValue);
+	bool GetAttributeBaseValue(FGameplayTag Tag,float& GetValue);
+	bool GetAttributeCurrValue(FGameplayTag Tag,float& GetValue);
 protected:
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	UPROPERTY(EditAnywhere)
 	TArray<FAttributeInitInfo> AttributeInit;
 
 	UPROPERTY(BlueprintReadWrite)

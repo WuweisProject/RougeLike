@@ -111,8 +111,10 @@ class ROUGELIKE_API UAttributeBase : public UObject
 
 
 public:
-	void SetAttributeCurrValue(FName AttributeName,float ChangeValue);
-	void SetAttributeBaseValue(FName AttributeName,float ChangeValue);
+	bool SetAttributeCurrValue(FName AttributeName,float ChangeValue);
+	bool SetAttributeBaseValue(FName AttributeName,float ChangeValue);
+	bool GetAttributeCurrValue(FName AttributeName,float& GetValue);
+	bool GetAttributeBaseValue(FName AttributeName,float& GetValue);
 
 private:
 	//CurrValue值改变之前
