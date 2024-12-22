@@ -43,7 +43,7 @@ void Init##PropertyName##(float NewCurrValue,float NewBaseValue)\
 	Set##PropertyName##CurrValue(NewCurrValue);\
 }
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FAttributeCallbackInfoBase
 {
 	GENERATED_BODY()

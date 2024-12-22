@@ -34,7 +34,7 @@ void UAbilityComponet::BeginPlay()
 				for(auto Data:Info.DataTable->GetRowMap())
 				{
 					FName DataName=Data.Key;
-					FAttributeInitData* AttributeInitData=Cast<FAttributeInitData>(Data.Value);
+					FAttributeInitData* AttributeInitData=reinterpret_cast<FAttributeInitData*>(&Data.Value);
 					AttributeBase->SetAttributeBaseValue(DataName,AttributeInitData->BaseValue);
 					AttributeBase->SetAttributeCurrValue(DataName,AttributeInitData->CurrValue);
 				}

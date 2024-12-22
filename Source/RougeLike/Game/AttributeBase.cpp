@@ -19,7 +19,7 @@ void FAttributeData::SetBaseValue(float NewValue)
 
 bool UAttributeBase::SetAttributeCurrValue(FName AttributeName, float ChangeValue)
 {
-	FAttributeData* AttributeData=Cast<FAttributeData>(GetClass()->FindPropertyByName(AttributeName));
+	FAttributeData* AttributeData=CastField<FStructProperty>(GetClass()->FindPropertyByName(AttributeName))->ContainerPtrToValuePtr<FAttributeData>(this);
 	if(AttributeData)
 	{
 		OnCurrValueChangedBefore(AttributeData,ChangeValue);
@@ -31,10 +31,9 @@ bool UAttributeBase::SetAttributeCurrValue(FName AttributeName, float ChangeValu
 
 bool UAttributeBase::SetAttributeBaseValue(FName AttributeName, float ChangeValue)
 {
-	FAttributeData* AttributeData=Cast<FAttributeData>(GetClass()->FindPropertyByName(AttributeName));
+	FAttributeData* AttributeData=CastField<FStructProperty>(GetClass()->FindPropertyByName(AttributeName))->ContainerPtrToValuePtr<FAttributeData>(this);
 	if(AttributeData)
 	{
-		AttributeData->SetBaseValue(ChangeValue);
 		OnBaseValueChangedAfter(AttributeData);
 		return true;
 	}
@@ -43,10 +42,9 @@ bool UAttributeBase::SetAttributeBaseValue(FName AttributeName, float ChangeValu
 
 bool UAttributeBase::GetAttributeCurrValue(FName AttributeName, float& GetValue)
 {
-	FAttributeData* AttributeData=Cast<FAttributeData>(GetClass()->FindPropertyByName(AttributeName));
+	FAttributeData* AttributeData=CastField<FStructProperty>(GetClass()->FindPropertyByName(AttributeName))->ContainerPtrToValuePtr<FAttributeData>(this);
 	if(AttributeData)
 	{
-		GetValue=AttributeData->GetCurrValue();
 		return true;
 	}
 	return false;
@@ -54,10 +52,9 @@ bool UAttributeBase::GetAttributeCurrValue(FName AttributeName, float& GetValue)
 
 bool UAttributeBase::GetAttributeBaseValue(FName AttributeName, float& GetValue)
 {
-	FAttributeData* AttributeData=Cast<FAttributeData>(GetClass()->FindPropertyByName(AttributeName));
+	FAttributeData* AttributeData=CastField<FStructProperty>(GetClass()->FindPropertyByName(AttributeName))->ContainerPtrToValuePtr<FAttributeData>(this);
 	if(AttributeData)
 	{
-		GetValue=AttributeData->GetBaseValue();
 		return true;
 	}
 	return false;
