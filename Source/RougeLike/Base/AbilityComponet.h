@@ -3,26 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttributeBase.h"
 #include "Components/ActorComponent.h"
 #include "AbilityComponet.generated.h"
-
-
-struct FGameplayTag;
-
-USTRUCT(Blueprintable)
-struct FAttributeInitInfo
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	TSubclassOf<UAttributeBase> Data;
-
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	UDataTable* DataTable;
-	
-};
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROUGELIKE_API UAbilityComponet : public UActorComponent
@@ -48,9 +30,5 @@ public:
 	bool GetAttributeBaseValue(FGameplayTag Tag,float& GetValue);
 	bool GetAttributeCurrValue(FGameplayTag Tag,float& GetValue);
 protected:
-	UPROPERTY(EditAnywhere)
-	TArray<FAttributeInitInfo> AttributeInit;
-
-	UPROPERTY(BlueprintReadWrite)
-	TArray<UAttributeBase*> AttributeDataArray;
+	
 };
