@@ -6,15 +6,32 @@
 #include "GameFramework/Actor.h"
 #include "AbilityBase.generated.h"
 
+USTRUCT(BlueprintType)
+struct FAbilityData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	FString Describe;
+	
+	UPROPERTY(EditAnywhere)
+	int32 Level;
+
+	UPROPERTY(EditAnywhere)
+	int32 ID;
+	
+	UPROPERTY(EditAnywhere)
+	float MaxCooling;
+};
+
 UCLASS()
-class ROUGELIKE_API AAbilityBase : public AActor
+class ROUGELIKE_API UAbilityBase : public UObject
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AAbilityBase();
-
+	UAbilityBase();
 private:
 	
 	
@@ -22,19 +39,34 @@ protected:
 	UFUNCTION(BlueprintNativeEvent)
 	void Excute();
 
-	UFUNCTION(BlueprintCallable)
-	void EndAbility();
+	void SetLevel(int32 NewLevel);
+
+protected:
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int32 ID;
+	
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	float MaxCooling;
 
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	float CurCooling;
 
-	UPROPERTY(BlueprintReadWrite,EditAnywhere)
-	float MaxCooling;
-
 	UPROPERTY(BlueprintReadOnly,EditAnywhere)
 	UDataTable* AbilityDateTable;
-public:
-	bool CanExcute(float Time);
+
+	UPROPERTY(BlueprintReadWrite)
+	FString AbilityName;
 	
-	void ExcuteAbility();
+	UPROPERTY(BlueprintReadWrite)
+	FString Describe;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 Level;
+	
+public:
+	void Init();
+	
+	void TryExcute(float Time);
+
+	void LevelUp();
 };

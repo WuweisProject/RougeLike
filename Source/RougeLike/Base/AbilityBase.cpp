@@ -5,34 +5,53 @@
 
 
 // Sets default values
-AAbilityBase::AAbilityBase()
+UAbilityBase::UAbilityBase():
+CurCooling(0.f)
 {
+	
 }
 
-void AAbilityBase::Excute_Implementation()
+void UAbilityBase::SetLevel(int32 NewLevel)
 {
-}
-
-
-void AAbilityBase::EndAbility()
-{
-}
-
-bool AAbilityBase::CanExcute(float Time)
-{
-	bool canExcute = false;
-
-	CurCooling-=Time;
-	if(CurCooling<=0)
+	if(AbilityDateTable)
 	{
-		canExcute=true;
-		CurCooling=MaxCooling;
-	}
+		for(auto it:AbilityDateTable)
+		{
+			FAbilityData* Data=(FAbilityData*)it.Value;
+			if(ID==Data.ID&&NewLevel==Data.Level)
+			{
+				Level=Data.Level;
+				Describe=Data.Describe;
+				MaxCooling=Data.MaxCooling;
 
-	return canExcute;
+				if(CurCooling>MaxCooling)
+					CurCooling=MaxCooling;
+			}
+		}
+	}
 }
 
-void AAbilityBase::ExcuteAbility()
+void UAbilityBase::Excute_Implementation()
 {
+}
+
+void UAbilityBase::Init()
+{
+	SetLevel(1);
+}
+
+void UAbilityBase::TryExcute(float Time)
+{
+	CurCooling-=Time;
+	if(CurCooling<=0.f)
+	{
+		CurCooling=MaxCooling;
+		Excute_Implementation();
+	}
+}
+
+void UAbilityBase::LevelUp()
+{
+	SetLevel(Level+1);
 }
 

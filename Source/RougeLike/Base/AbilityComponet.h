@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "AbilityComponet.generated.h"
 
+class UAbilityBase;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROUGELIKE_API UAbilityComponet : public UActorComponent
 {
@@ -24,11 +26,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
-
-	void SetAttributeBaseValue(FGameplayTag Tag,float NewValue);
-	void SetAttributeCurrValue(FGameplayTag Tag,float NewValue);
-	bool GetAttributeBaseValue(FGameplayTag Tag,float& GetValue);
-	bool GetAttributeCurrValue(FGameplayTag Tag,float& GetValue);
+	void GiveAbilityByClass(TSubclassOf<UAbilityBase> AbilityClass);
 protected:
-	
+	void TryExcuteAbility();
+protected:
+	FTimerHandle ExcuteTimer;
+
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	float ExcuteInterval;
+
+	TArray<UAbilityBase*> Abilities;
 };
