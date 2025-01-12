@@ -15,14 +15,14 @@ void UAbilityBase::SetLevel(int32 NewLevel)
 {
 	if(AbilityDateTable)
 	{
-		for(auto it:AbilityDateTable)
+		for(auto it:AbilityDateTable->GetRowMap())
 		{
 			FAbilityData* Data=(FAbilityData*)it.Value;
-			if(ID==Data.ID&&NewLevel==Data.Level)
+			if(ID==Data->ID&&NewLevel==Data->Level)
 			{
-				Level=Data.Level;
-				Describe=Data.Describe;
-				MaxCooling=Data.MaxCooling;
+				Level=Data->Level;
+				Describe=Data->Describe;
+				MaxCooling=Data->MaxCooling;
 
 				if(CurCooling>MaxCooling)
 					CurCooling=MaxCooling;

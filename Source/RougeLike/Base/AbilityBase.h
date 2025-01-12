@@ -22,6 +22,11 @@ struct FAbilityData
 	
 	UPROPERTY(EditAnywhere)
 	float MaxCooling;
+
+	FAbilityData():Level(0),ID(0),MaxCooling(0.f),Describe("")
+	{
+		
+	}
 };
 
 UCLASS()
@@ -62,7 +67,6 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 Level;
-	
 public:
 	void Init();
 	
