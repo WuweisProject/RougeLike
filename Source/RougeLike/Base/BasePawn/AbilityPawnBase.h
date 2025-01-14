@@ -35,7 +35,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category="Ability")
 	UAbilityComponet* AbilityComponet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
